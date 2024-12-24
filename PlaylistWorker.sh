@@ -19,11 +19,11 @@ while [[ $running = 1 ]]; do
 	else
 	
 		if [ ${command:0:1} == "3" ]; then
-			screen -dmS MediaCtrl ~/Zug-ins-Nirgendwo/MediaCtrl.sh 0 1
+			screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 0 1
 		else
-			screen -dmS MediaCtrl ~/Zug-ins-Nirgendwo/MediaCtrl.sh 0 0
+			screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 0 0
 		fi
-		~/Zug-ins-Nirgendwo/PlayVideo.sh $command 1
+		~/Zug-Ins-Nirgendwo/PlayVideo.sh $command 1
 		screen -S MediaCtrl -X stuff "^C"
 		line=$((line+1))
 	fi

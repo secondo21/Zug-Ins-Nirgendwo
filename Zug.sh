@@ -22,8 +22,8 @@ if [[ $return = 0 ]] then
 			zenity --title="Zug ins Nirgendwo" --error --text="Der eingegebene Wert muss eine ganze Zahl sein"
 		fi
 	done
-	screen -dmS MediaCtrl ~/Zug-ins-Nirgendwo/MediaCtrl.sh 1 0
-	~/Zug-ins-Nirgendwo/PlayVideo.sh 1 $file $delay $loop
+	screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 1 0
+	~/Zug-Ins-Nirgendwo/PlayVideo.sh 1 $file $delay $loop
 	screen -S MediaCtrl -X stuff "^C"
 else
 	
@@ -35,7 +35,7 @@ else
 		while [[ $file != *.play ]] do
 			file=$(zenity --title="Zug ins Nirgendwo" --file-selection --text="Wähle die Paylist" --file-filter='Playlist | *.play')
 		done
-		screen -dmS PlaylistWorker ~/Zug-ins-Nirgendwo/PlaylistWorker.sh $file $loop
+		screen -dmS PlaylistWorker ~/Zug-Ins-Nirgendwo/PlaylistWorker.sh $file $loop
 		while screen -list | grep -q "PlaylistWorker"
 		do
     			sleep 1
@@ -52,8 +52,8 @@ else
 			VideoNumber=$(($VideoNumber+1))
 			file="error"
 		done
-		screen -dmS MediaCtrl ~/Zug-ins-Nirgendwo/MediaCtrl.sh 1 1
-		~/Zug-ins-Nirgendwo/PlayVideo.sh 3 ${Videos[0]} ${Videos[1]} ${Videos[2]} $loop
+		screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 1 1
+		~/Zug-Ins-Nirgendwo/PlayVideo.sh 3 ${Videos[0]} ${Videos[1]} ${Videos[2]} $loop
 		screen -S MediaCtrl -X stuff "^C"
 	fi
 fi
