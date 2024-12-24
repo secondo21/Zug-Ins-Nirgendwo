@@ -1,5 +1,20 @@
 #!/bin/bash
 
+sanitize_path() {
+  local path="$1"
+  # Escape problematic characters
+  path="${path// /\\ }"  # Escape spaces
+  path="${path//\"/\\\"}" # Escape double quotes
+  path="${path//\'/\\\'}" # Escape single quotes
+  path="${path//\$/\\\$}" # Escape dollar signs
+  path="${path//\`/\\\`}" # Escape backticks
+  path="${path//\(/\\\(}" # Escape parentheses
+  path="${path//\)/\\\)}" # Escape parentheses
+  path="${path//\&/\\&}"  # Escape ampersands
+  path="${path//;/\\;}"   # Escape semicolons
+  echo "$path"
+}
+
 mode=$(zenity --title="Zug ins Nirgendwo" --info --text="Bitte wälen sie den Modus" --ok-label="1 Video" --extra-button="3 Videos"  --extra-button="Playlist")
 return=$?
 if [[ $return = 0 ]] then 
@@ -11,6 +26,8 @@ if [[ $return = 0 ]] then
 	while [[ $file != *.mp4 ]] do
 		file=$(zenity --title="Zug ins Nirgendwo" --file-selection --text="Wähle ein video" --file-filter='mp4 Video | *.mp4')
 	done
+	# file=$(sanitize_path "$file")
+	echo "$file"
 	
 	while [[ $delayIsNumber != 1 ]] do
 	
@@ -23,7 +40,7 @@ if [[ $return = 0 ]] then
 		fi
 	done
 	screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 1 0
-	~/Zug-Ins-Nirgendwo/PlayVideo.sh 1 $file $delay $loop
+	~/Zug-Ins-Nirgendwo/PlayVideo.sh 1 "$file" $delay $loop
 	screen -S MediaCtrl -X stuff "^C"
 else
 	
@@ -48,12 +65,13 @@ else
 				file=$(zenity --title="Zug ins Nirgendwo" --file-selection --text="Wähle ein video für Display $VideoNumber" --file-filter='mp4 Video | *.mp4')
 				echo $VideoNumber
 			done
+			# file=$(sanitize_path "$file")
 			Videos+=($file)
 			VideoNumber=$(($VideoNumber+1))
 			file="error"
 		done
 		screen -dmS MediaCtrl ~/Zug-Ins-Nirgendwo/MediaCtrl.sh 1 1
-		~/Zug-Ins-Nirgendwo/PlayVideo.sh 3 ${Videos[0]} ${Videos[1]} ${Videos[2]} $loop
+		~/Zug-Ins-Nirgendwo/PlayVideo.sh 3 "${Videos[0]}" "${Videos[1]}" "${Videos[2]}" $loop
 		screen -S MediaCtrl -X stuff "^C"
 	fi
 fi

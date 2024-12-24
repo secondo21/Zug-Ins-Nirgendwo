@@ -28,7 +28,7 @@ if [[ $1 = 1 ]] then
 	screen -dmS Dispaly2 vlc -f --qt-fullscreen-screennumber=2 --network-caching=${delays[1]} --extraintf rc --no-qt-fs-controller --qt-continue --no-video-title-show --no-qt-error-dialogs 0 udp://@:1232
 	screen -dmS Dispaly3 vlc -f --qt-fullscreen-screennumber=3 --network-caching=${delays[2]} --extraintf rc --no-qt-fs-controller --qt-continue --no-video-title-show --no-qt-error-dialogs --no-audio 0 udp://@:1233
 	
-	screen -dmS Stream cvlc --intf rc --sout "#duplicate{dst=udp{mux=ts,dst=127.0.0.1:1231},dst=udp{mux=ts,dst=127.0.0.1:1232},dst=udp{mux=ts,dst=127.0.0.1:1233}}" $loopingArgument $2
+	screen -dmS Stream cvlc --intf rc --sout "#duplicate{dst=udp{mux=ts,dst=127.0.0.1:1231},dst=udp{mux=ts,dst=127.0.0.1:1232},dst=udp{mux=ts,dst=127.0.0.1:1233}}" $loopingArgument "$2"
 	
 	while screen -list | grep -q "Stream"
 	do
@@ -52,9 +52,9 @@ elif [[ $1 = 3 ]] then
 		loopingArgument=--play-and-exit
 	fi
 
-	screen -dmS Dispaly1 vlc -f --qt-fullscreen-screennumber=1 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show --no-audio $loopingArgument $2
-	screen -dmS Dispaly2 vlc -f --qt-fullscreen-screennumber=2 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show $loopingArgument $3
-	screen -dmS Dispaly3 vlc -f --qt-fullscreen-screennumber=3 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show --no-audio $loopingArgument $4
+	screen -dmS Dispaly1 vlc -f --qt-fullscreen-screennumber=1 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show --no-audio $loopingArgument "$2"
+	screen -dmS Dispaly2 vlc -f --qt-fullscreen-screennumber=2 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show $loopingArgument "$3"
+	screen -dmS Dispaly3 vlc -f --qt-fullscreen-screennumber=3 --extraintf rc --no-qt-fs-controller --qt-continue 0 --no-video-title-show --no-audio $loopingArgument "$4"
 	
 	while screen -list | grep -q "Dispaly*"
 	do
