@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 0.1
-
 if [ -f ~/.config/vlc/vlc-qt-interface.conf.bak ]; then
     rm ~/.config/vlc/vlc-qt-interface.conf.bak
 fi
@@ -61,8 +59,6 @@ elif [[ $1 = 3 ]] then
     		sleep 1
 	done
 fi
-
-sleep 0.1
 
 if [ -f ~/.config/vlc/vlc-qt-interface.conf ]; then
     rm ~/.config/vlc/vlc-qt-interface.conf
